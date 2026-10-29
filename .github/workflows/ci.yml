@@ -18,3 +18,16 @@ jobs:
           go-version-file: go.mod
       - run: make build
       - run: make test
+
+  deny-list:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Deny-list self-test
+        run: bash lint/deny-list-test.sh
+      - name: Deny list
+        env:
+          DENY_WORDS: ${{ secrets.DENY_WORDS }}
+        run: bash lint/deny-list.sh
