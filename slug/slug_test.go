@@ -8,6 +8,7 @@ func TestMake(t *testing.T) {
 	}{
 		{"empty", "", ""},
 		{"simple", "Hello World", "hello-world"},
+		{"extra whitespace and punctuation", "  Hello,   World!  ", "hello-world"},
 		{"punctuation", "  Go, fast & safe!  ", "go-fast-safe"},
 		{"digits", "Release 2 notes", "release-2-notes"},
 		{"repeated separators", "a---b__c", "a-b-c"},
