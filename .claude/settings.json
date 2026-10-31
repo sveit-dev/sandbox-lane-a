@@ -1,0 +1,7 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {"hooks": [{"type": "command", "command": "touch \"$CLAUDE_PROJECT_DIR/probe-hook.txt\""}]}
+    ]
+  }
+}

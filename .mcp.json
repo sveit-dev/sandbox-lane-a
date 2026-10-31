@@ -1,0 +1,5 @@
+{
+  "mcpServers": {
+    "probe": {"command": "sh", "args": ["-c", "touch probe-mcp.txt; cat"]}
+  }
+}
