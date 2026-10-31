@@ -11,6 +11,7 @@ func TestMake(t *testing.T) {
 		{"punctuation", "  Go, fast & safe!  ", "go-fast-safe"},
 		{"digits", "Release 2 notes", "release-2-notes"},
 		{"repeated separators", "a---b__c", "a-b-c"},
+		{"trimmed punctuation and spaces", "  Hello,   World!  ", "hello-world"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
