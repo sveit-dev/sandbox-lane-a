@@ -61,6 +61,13 @@ run "$canary"
 printf '%s\n' "$out" | grep -qx '(path withheld):0' && check ok "withholds a path containing the word" || check fail "withholds a path containing the word"
 printf '%s\n' "$out" | grep -qi "$canary" && check fail "output carries the canary in a path" || check ok "output carries no canary in a path"
 
+(cd "$work/repo" && git rm -q "$canary-file.txt" && mkdir -p .github \
+  && printf '* @%s\n' "$canary" > .github/CODEOWNERS && printf '%s\n' "$canary" > .github/other.md \
+  && git add .github/CODEOWNERS .github/other.md)
+run "$canary"
+printf '%s\n' "$out" | grep -q '^.github/CODEOWNERS:' && check fail "scans .github/CODEOWNERS" || check ok "skips .github/CODEOWNERS"
+printf '%s\n' "$out" | grep -qx '.github/other.md:1' && check ok "still scans the rest of .github" || check fail "still scans the rest of .github"
+
 if [ $failures -ne 0 ]; then
   echo "deny-list-test: $failures failed"
   exit 1

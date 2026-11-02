@@ -7,6 +7,10 @@
 # the word or the line. A tracked path that itself contains a word is printed
 # as "(path withheld):0".
 #
+# .github/CODEOWNERS is skipped in this repository: it names the lane owner
+# and the deployment admins by GitHub login, as sveit guardrails writes it
+# (SVT-237). The shared contract in sveit-protocols has no such exemption.
+#
 # Exit codes: 0 clean, 1 at least one hit, 2 DENY_WORDS unset or empty, or a
 # file that could not be read.
 #
@@ -43,6 +47,9 @@ fi
 
 status=0
 while IFS= read -r -d '' path; do
+  if [ "$path" = .github/CODEOWNERS ]; then
+    continue
+  fi
   if printf '%s\n' "$path" | grep -q -i -F -f "$patterns"; then
     echo "(path withheld):0"
     status=1
