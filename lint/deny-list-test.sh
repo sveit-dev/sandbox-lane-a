@@ -61,7 +61,7 @@ run "$canary"
 printf '%s\n' "$out" | grep -qx '(path withheld):0' && check ok "withholds a path containing the word" || check fail "withholds a path containing the word"
 printf '%s\n' "$out" | grep -qi "$canary" && check fail "output carries the canary in a path" || check ok "output carries no canary in a path"
 
-(cd "$work/repo" && git rm -q "$canary-file.txt" && mkdir -p .github \
+(cd "$work/repo" && git rm -q -f "$canary-file.txt" && mkdir -p .github \
   && printf '* @%s\n' "$canary" > .github/CODEOWNERS && printf '%s\n' "$canary" > .github/other.md \
   && git add .github/CODEOWNERS .github/other.md)
 run "$canary"
